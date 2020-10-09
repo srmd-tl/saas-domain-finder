@@ -1,0 +1,39 @@
+{
+  "menu": [
+    {
+      "url": "",
+      "name": "Dashboard",
+      "slug": "dashboard",
+      "badge": "2",
+      "badgeClass": "badge badge-warning badge-pill float-right mr-2",
+      "icon": "feather icon-home",
+      "submenu": [
+        {
+          "url": "/",
+          "name": "Analytics",
+          "icon": "feather icon-circle",
+          "i18n": "nav.dashboard_analytics"
+        },
+        {
+          "url": "dashboard-ecommerce",
+          "name": "eCommerce",
+          "icon": "feather icon-circle",
+          "i18n": "nav.dashboard_ecommerce"
+        }
+      ]
+    },
+
+    {
+      "url": "https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation/documentation-laravel.html",
+      "name": "Documentation",
+      "icon": "feather icon-folder",
+      "i18n": "nav.documentation"
+    },
+    {
+      "url": "domains",
+      "name": "Domains",
+      "icon": "feather icon-life-buoy",
+      "i18n": "nav.raise_support"
+    }
+  ]
+}
