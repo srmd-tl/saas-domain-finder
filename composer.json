@@ -16,6 +16,7 @@
         "laravel/passport": "^7.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2",
+        "philcook/gtmetrix": "^1.0",
         "spatie/laravel-permission": "^3.8",
         "yajra/laravel-datatables": "^1.5"
     },

@@ -10,6 +10,12 @@ use App\Http\Controllers\LanguageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('report',function (){
+  $util = new \App\Utils\Util();
+  $util->callToGtMetrix();
+});
+
 Route::get('/users', 'UsersController@index')->name('users.index');
 
 // Route url
