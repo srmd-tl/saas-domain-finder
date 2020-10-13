@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="898f1db5-8975-460f-9228-4df8ddc7b523" name="Default Changelist" comment="init">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/full-version.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/full-version.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RouteServiceProvider.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/composer" />
@@ -149,6 +151,7 @@
       <path value="$PROJECT_DIR$/vendor/psr/log" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/philcook/gtmetrix" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ib6JArVqNxlfMacbY5KdgVaQZ0" />
@@ -159,6 +162,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="yarn" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -178,8 +182,19 @@
       <workItem from="1602163872596" duration="90000" />
       <workItem from="1602226130116" duration="979000" />
       <workItem from="1602227946067" duration="2218000" />
-      <workItem from="1602232659417" duration="4114000" />
+      <workItem from="1602232659417" duration="4565000" />
+      <workItem from="1602307643452" duration="3519000" />
+      <workItem from="1602565916968" duration="6528000" />
+      <workItem from="1602598198181" duration="3635000" />
     </task>
+    <task id="LOCAL-00001" summary="fetch data from whois">
+      <created>1602601615534</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1602601615534</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,16 +202,37 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="fetch data from whois" />
+    <option name="LAST_COMMIT_MESSAGE" value="fetch data from whois" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="464" y="84" width="986" height="881" key="CommitChangelistDialog2" timestamp="1602236568480">
+    <state x="540" y="182" width="828" height="686" key="#CLI_Interpreters" timestamp="1602315010814">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="464" y="84" width="986" height="881" key="CommitChangelistDialog2/0.0.1920.1048@0.0.1920.1048" timestamp="1602236568480" />
-    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1602241740866">
+    <state x="540" y="182" width="828" height="686" key="#CLI_Interpreters/0.0.1920.1048@0.0.1920.1048" timestamp="1602315010814" />
+    <state x="617" y="159" width="679" height="731" key="#PHP" timestamp="1602315024308">
       <screen x="0" y="0" width="1920" height="1048" />
     </state>
-    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1602241740866" />
+    <state x="617" y="159" width="679" height="731" key="#PHP/0.0.1920.1048@0.0.1920.1048" timestamp="1602315024308" />
+    <state x="768" y="243" width="378" height="564" key="#com.intellij.ide.util.MemberChooser" timestamp="1602599076795">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="768" y="243" width="378" height="564" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1048@0.0.1920.1048" timestamp="1602599076795" />
+    <state x="464" y="84" width="986" height="881" key="CommitChangelistDialog2" timestamp="1602601613436">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="464" y="84" width="986" height="881" key="CommitChangelistDialog2/0.0.1920.1048@0.0.1920.1048" timestamp="1602601613436" />
+    <state x="757" y="450" width="399" height="150" key="NewPhpFileDialog" timestamp="1602576228976">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="757" y="450" width="399" height="150" key="NewPhpFileDialog/0.0.1920.1048@0.0.1920.1048" timestamp="1602576228976" />
+    <state x="555" y="260" width="804" height="530" key="Vcs.Push.Dialog.v2" timestamp="1602601629564">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="555" y="260" width="804" height="530" key="Vcs.Push.Dialog.v2/0.0.1920.1048@0.0.1920.1048" timestamp="1602601629564" />
+    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1602601795730">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1602601795730" />
   </component>
 </project>
