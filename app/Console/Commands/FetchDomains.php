@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use mysql_xdevapi\Exception;
+
 
 /**
  * Class FetchDomains
@@ -44,7 +44,9 @@ class FetchDomains extends Command
    */
   public function handle()
   {
+
     $date = "2020-10-13";
+
     //Your username.
     $username = '2020-11-01';
     //Your password.
@@ -65,9 +67,12 @@ class FetchDomains extends Command
         Log::alert($exception->getMessage());
         dd($exception);
       }
+
+
     }
+    //Read Csv Files and seed db
     if ($response) {
-      //Do manipulations
+
     }
 
     return 0;
@@ -91,6 +96,7 @@ class FetchDomains extends Command
 
       $url = sprintf('https://global.whoisdatacenter.com/%s.zip', $date);
       curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_HEADER, true);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
       curl_setopt($ch, CURLOPT_VERBOSE, true);
@@ -103,14 +109,18 @@ class FetchDomains extends Command
       curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
       $result = curl_exec($ch);
+
+      //Get Status Code
+      $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
       if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
       }
 
-      //putting content retrieved from API
-      file_put_contents($filepath, $result);
+
 
       if ((filesize($filepath) > 0)) {
+
         return true;
       } else {
         throw new \Exception("File Not Found!");
@@ -127,6 +137,7 @@ class FetchDomains extends Command
   /**
    * @param string $file
    * @return bool
+
    */
   private function unzipFile(string $file): bool
   {
@@ -142,6 +153,7 @@ class FetchDomains extends Command
     } else {
       throw new \Exception("File not found");
     }
+
 
 
   }
