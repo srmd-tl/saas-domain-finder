@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 class DomainImport implements ToModel, WithStartRow
 {
 
-  protected string $country;
+  protected  $country;
   public function  __construct(string $country)
   {
     $this->country= $country;
