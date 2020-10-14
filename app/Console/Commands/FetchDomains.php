@@ -6,6 +6,11 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+
+/**
+ * Class FetchDomains
+ * @package App\Console\Commands
+ */
 class FetchDomains extends Command
 {
   /**
@@ -41,8 +46,7 @@ class FetchDomains extends Command
   {
 
     $date = "2020-10-13";
-//    $response = self::unzipFile($date);
-//    dd($response);
+
     //Your username.
     $username = '2020-11-01';
     //Your password.
@@ -56,12 +60,14 @@ class FetchDomains extends Command
     }
     //Unzip File
     if ($response) {
+
       try {
 //        $response = self::unzipFile($date);
       } catch (\Exception $exception) {
         Log::alert($exception->getMessage());
         dd($exception);
       }
+
 
     }
     //Read Csv Files and seed db
@@ -112,9 +118,9 @@ class FetchDomains extends Command
       }
 
 
-      if ($httpCode == 200) {
-        //putting content retrieved from API
-        file_put_contents($filepath, $result);
+
+      if ((filesize($filepath) > 0)) {
+
         return true;
       } else {
         throw new \Exception("File Not Found!");
@@ -131,19 +137,25 @@ class FetchDomains extends Command
   /**
    * @param string $file
    * @return bool
-   * @throws \Exception
+
    */
   private function unzipFile(string $file): bool
   {
-    $zip_obj = new \ZipArchive();
-    if ($zip_obj->open(public_path(sprintf('whois/%s.zip', $file))) === TRUE) {
-      $zip_obj->extractTo(public_path(sprintf('whois')));
+    $zipArchive = new \ZipArchive();
+    $path = public_path(sprintf("whois/%s.zip", $file));
+    $status = $zipArchive->open($path);
 
+    if ($status === TRUE) {
+      $zipArchive->extractTo(public_path("whois"));
+      $zipArchive->close();
       return true;
+
     } else {
-      throw new \Exception("This zip file does not exists");
-      return false;
+      throw new \Exception("File not found");
     }
+
+
+
   }
 }
 
