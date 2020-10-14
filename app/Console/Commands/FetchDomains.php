@@ -47,8 +47,7 @@ class FetchDomains extends Command
   public function handle()
   {
     //Your Date
-    $date = Carbon::now()->toDateString()-1;
-
+    $date =Carbon::now()->subDays(1)->toDateString();
     //Your username.
     $username = '2020-11-01';
     //Your password.
