@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0844ef6-0e40-45a2-be26-353a506f74ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/FetchDomains.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/FetchDomains.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/database.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/database/database.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_08_083302_create_domains_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_08_083302_create_domains_table.php" afterDir="false" />
-    </list>
+    <list default="true" id="a0844ef6-0e40-45a2-be26-353a506f74ab" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,5 +15,11 @@
   </component>
   <component name="TaskManager">
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1602668463057">
+      <screen x="0" y="0" width="1920" height="1048" />
+    </state>
+    <state x="623" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1920.1048@0.0.1920.1048" timestamp="1602668463057" />
   </component>
 </project>
