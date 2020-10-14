@@ -44,9 +44,8 @@ class FetchDomains extends Command
    */
   public function handle()
   {
-
-    $date = "2020-10-13";
-
+    //Your Date
+    $date = "2020-10-11";
     //Your username.
     $username = '2020-11-01';
     //Your password.
@@ -62,7 +61,7 @@ class FetchDomains extends Command
     if ($response) {
 
       try {
-//        $response = self::unzipFile($date);
+        $response = self::unzipFile($date);
       } catch (\Exception $exception) {
         Log::alert($exception->getMessage());
         dd($exception);
@@ -96,7 +95,6 @@ class FetchDomains extends Command
 
       $url = sprintf('https://global.whoisdatacenter.com/%s.zip', $date);
       curl_setopt($ch, CURLOPT_URL, $url);
-      curl_setopt($ch, CURLOPT_HEADER, true);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
       curl_setopt($ch, CURLOPT_VERBOSE, true);
@@ -110,17 +108,16 @@ class FetchDomains extends Command
 
       $result = curl_exec($ch);
 
-      //Get Status Code
-      $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      $statusCode = curl_getinfo($ch)["http_code"];
 
       if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
       }
 
 
-
-      if ((filesize($filepath) > 0)) {
-
+      if ($statusCode == 200) {
+        //putting content retrieved from API
+        file_put_contents($filepath, $result);
         return true;
       } else {
         throw new \Exception("File Not Found!");
@@ -137,7 +134,6 @@ class FetchDomains extends Command
   /**
    * @param string $file
    * @return bool
-
    */
   private function unzipFile(string $file): bool
   {
@@ -153,7 +149,6 @@ class FetchDomains extends Command
     } else {
       throw new \Exception("File not found");
     }
-
 
 
   }
