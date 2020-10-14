@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Excel;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DomainImport;
 
 /**
  * Class FetchDomains
@@ -46,7 +47,8 @@ class FetchDomains extends Command
   public function handle()
   {
     //Your Date
-    $date = "2020-10-11";
+    $date = Carbon::now()->toDateString();
+
     //Your username.
     $username = '2020-11-01';
     //Your password.
@@ -72,7 +74,12 @@ class FetchDomains extends Command
     }
     //Read Csv Files and seed db
     if ($response) {
-      Excel::import(new DomainImport, 'users.xlsx');
+      //Import United States Domains
+      Excel::import(new DomainImport("United States"), public_path(sprintf("whois/%s/country-specific-database/united_states.csv",$date)));
+      //Import Canadian Domains
+      Excel::import(new DomainImport("Canada"), public_path(sprintf("whois/%s/country-specific-database/canada.csv", $date)));
+      //Import Uk Domains
+      Excel::import(new DomainImport("United Kingdom"), public_path(sprintf("whois/%s/country-specific-database/united_kingdom.csv", $date)));
     }
 
     return 0;
