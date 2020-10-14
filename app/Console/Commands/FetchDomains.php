@@ -5,7 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use mysql_xdevapi\Exception;
 
+/**
+ * Class FetchDomains
+ * @package App\Console\Commands
+ */
 class FetchDomains extends Command
 {
   /**
@@ -39,18 +44,32 @@ class FetchDomains extends Command
    */
   public function handle()
   {
-    $date = "2020-10-11";
+    $date = "2020-10-13";
     //Your username.
     $username = '2020-11-01';
     //Your password.
     $password = '3CHf7ZJfQ541';
     try {
-      self::curlCall($username, $password, $date);
+      $response = self::curlCall($username, $password, $date);
 
     } catch (\Exception $exception) {
       Log::alert($exception->getMessage());
       dd($exception);
     }
+    //Unzip File
+    if ($response) {
+
+      try {
+        $response = self::unzipFile($date);
+      } catch (\Exception $exception) {
+        Log::alert($exception->getMessage());
+        dd($exception);
+      }
+    }
+    if ($response) {
+      //Do manipulations
+    }
+
     return 0;
   }
 
@@ -92,7 +111,7 @@ class FetchDomains extends Command
       file_put_contents($filepath, $result);
 
       if ((filesize($filepath) > 0)) {
-        throw new \Exception("File Fetched");
+        return true;
       } else {
         throw new \Exception("File Not Found!");
       }
@@ -102,6 +121,28 @@ class FetchDomains extends Command
     } else {
       throw new \Exception("File Already Exists");
     }
+
+  }
+
+  /**
+   * @param string $file
+   * @return bool
+   */
+  private function unzipFile(string $file): bool
+  {
+    $zipArchive = new \ZipArchive();
+    $path = public_path(sprintf("whois/%s.zip", $file));
+    $status = $zipArchive->open($path);
+
+    if ($status === TRUE) {
+      $zipArchive->extractTo(public_path("whois"));
+      $zipArchive->close();
+      return true;
+
+    } else {
+      throw new \Exception("File not found");
+    }
+
 
   }
 }
