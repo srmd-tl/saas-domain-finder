@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Excel;
 
 
 /**
@@ -71,7 +72,7 @@ class FetchDomains extends Command
     }
     //Read Csv Files and seed db
     if ($response) {
-
+      Excel::import(new DomainImport, 'users.xlsx');
     }
 
     return 0;
@@ -142,7 +143,7 @@ class FetchDomains extends Command
     $status = $zipArchive->open($path);
 
     if ($status === TRUE) {
-      $zipArchive->extractTo(public_path("whois"));
+      $zipArchive->extractTo(public_path(sprintf("whois/%s", $file)));
       $zipArchive->close();
       return true;
 
