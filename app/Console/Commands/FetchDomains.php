@@ -40,9 +40,9 @@ class FetchDomains extends Command
   public function handle()
   {
 
-    $date = "2020-10-11";
-    $response = self::unzipFile($date);
-    dd($response);
+    $date = "2020-10-13";
+//    $response = self::unzipFile($date);
+//    dd($response);
     //Your username.
     $username = '2020-11-01';
     //Your password.
@@ -57,7 +57,7 @@ class FetchDomains extends Command
     //Unzip File
     if ($response) {
       try {
-        $response = self::unzipFile($date);
+//        $response = self::unzipFile($date);
       } catch (\Exception $exception) {
         Log::alert($exception->getMessage());
         dd($exception);
