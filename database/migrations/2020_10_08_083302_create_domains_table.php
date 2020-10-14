@@ -16,6 +16,7 @@ class CreateDomainsTable extends Migration
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->string("region")->comment("Region of the domain (us,canada or uk)");
             $table->dateTime("create_date");
             $table->dateTime("expiry_date");
             $table->boolean("is_present")->comment("If the site exists on the domain");
