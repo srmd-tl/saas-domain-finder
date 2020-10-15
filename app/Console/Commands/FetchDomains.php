@@ -48,6 +48,15 @@ class FetchDomains extends Command
   {
     //Your Date
     $date =Carbon::now()->subDays(1)->toDateString();
+
+    //Import United States Domains
+    Excel::import(new DomainImport("United States"), public_path(sprintf("whois/%s/country-specific-database/united_states.csv",$date)));
+    //Import Canadian Domains
+    Excel::import(new DomainImport("Canada"), public_path(sprintf("whois/%s/country-specific-database/canada.csv", $date)));
+    //Import Uk Domains
+    Excel::import(new DomainImport("United Kingdom"), public_path(sprintf("whois/%s/country-specific-database/united_kingdom.csv", $date)));
+
+    dd("e");
     //Your username.
     $username = '2020-11-01';
     //Your password.

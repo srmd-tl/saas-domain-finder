@@ -1,5 +1,7 @@
 <?php
+
 use App\Http\Controllers\LanguageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,8 +12,12 @@ use App\Http\Controllers\LanguageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('isPresent', function () {
 
-Route::get('report',function (){
+
+
+});
+Route::get('report', function () {
   $util = new \App\Utils\Util();
   $util->callToGtMetrix();
 });
@@ -43,7 +49,7 @@ Route::get('/app-user-view', 'UserPagesController@user_view');
 Route::get('/app-user-edit', 'UserPagesController@user_edit');
 
 // Route Data List
-Route::resource('/data-list-view','DataListController');
+Route::resource('/data-list-view', 'DataListController');
 Route::resource('/data-thumb-view', 'DataThumbController');
 
 
@@ -170,7 +176,7 @@ Route::get('/modern-admin', 'AccessController@home')->middleware('role:Admin');
 Route::post('/login/validate', 'Auth\LoginController@validate_api');
 
 // locale Route
-Route::get('lang/{locale}',[LanguageController::class,'swap']);
+Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 Auth::routes();
 
