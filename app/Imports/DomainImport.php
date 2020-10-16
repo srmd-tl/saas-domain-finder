@@ -5,11 +5,12 @@ namespace App\Imports;
 use App\Domain;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Support\Collection;
 use Matrix\Exception;
 
-class DomainImport implements ToCollection, WithStartRow
+class DomainImport implements ToCollection, WithStartRow,WithChunkReading
 {
 
   protected $country;
@@ -62,6 +63,11 @@ class DomainImport implements ToCollection, WithStartRow
   public function startRow(): int
   {
     return 2;
+  }
+
+  public function chunkSize(): int
+  {
+    return 50;
   }
 
   private function scrapeWebsiteData($body, bool &$isPresent): array
