@@ -27,7 +27,7 @@ class CreateDomainsTable extends Migration
             $table->string("city")->nullable();
             $table->string("state")->nullable();
             $table->string("zip_code")->nullable();
-            $table->string("title")->nullable();
+            $table->text("title")->nullable();
             $table->text("description")->nullable();
             $table->string("facebook")->nullable()->comment("Facebook link");
             $table->string("twitter")->nullable()->comment("Twitter link");
