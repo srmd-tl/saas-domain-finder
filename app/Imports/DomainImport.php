@@ -3,10 +3,13 @@
 namespace App\Imports;
 
 use App\Domain;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Illuminate\Support\Collection;
+use Matrix\Exception;
 
-class DomainImport implements ToModel, WithStartRow
+class DomainImport implements ToCollection, WithStartRow
 {
 
   protected $country;
@@ -21,33 +24,35 @@ class DomainImport implements ToModel, WithStartRow
    *
    * @return \Illuminate\Database\Eloquent\Model|null
    */
-  public function model(array $row)
+  public function collection(Collection $rows)
   {
     $util = new \App\Utils\Util();
-    $isPresent = true;
-    $websiteScrapedData = [];
-    try {
-      $body = $util->sitePresenceCheck($row[1]);
-    } catch (\Exception $exception) {
-      $isPresent = false;
+    foreach ($rows as $row) {
+      $isPresent = true;
+      $websiteScrapedData = [];
+      try {
+        $body = $util->sitePresenceCheck($row[1]);
+      } catch (\Exception $exception) {
+        $isPresent = false;
+      }
+      if ($isPresent) {
+        $websiteScrapedData = (self::scrapeWebsiteData($body, $isPresent));
+
+      }
+       Domain::create([
+        'name' => $row[1],
+        'region' => $this->country,
+        'create_date' => $row[3],
+        'expiry_date' => $row[5],
+        'name_servers' => $row[50] ?? "NA",
+        'is_present' => $isPresent,
+        'title' => $websiteScrapedData["title"] ?? null,
+        'description' => $websiteScrapedData["description"] ?? null
+
+      ]);
     }
-    if ($isPresent) {
-      $websiteScrapedData = (self::scrapeWebsiteData($body, $isPresent));
-
-    }
 
 
-    return new Domain([
-      'name' => $row[1],
-      'region' => $this->country,
-      'create_date' => $row[3],
-      'expiry_date' => $row[5],
-      'name_servers' => $row[50] ?? "NA",
-      'is_present' => $isPresent,
-      'title' => $websiteScrapedData["title"] ?? null,
-      'description' => $websiteScrapedData["description"] ?? null
-
-    ]);
   }
 
 
@@ -72,11 +77,26 @@ class DomainImport implements ToModel, WithStartRow
       }
 
       if ($isPresent) {
-        $title = $crawler->filterXPath('//title')->text();
+        try {
+          try {
+
+
+            $title = $crawler->filterXPath('//title')->text();
+          }
+          catch (\InvalidArgumentException $e)
+          {
+           $title = null;
+          }
+
+        }
+        catch (Exception $exception)
+        {
+          dd($exception);
+        }
+
       }
 
     }
-
     return ["title" => $title ?? null, "description" => $metaDescription[0] ?? null];
 
 
