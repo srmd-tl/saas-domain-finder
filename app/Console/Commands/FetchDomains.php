@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ImportCADomains;
+use App\Jobs\ImportUKDomains;
+use App\Jobs\ImportUSDomains;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
@@ -47,9 +50,22 @@ class FetchDomains extends Command
   public function handle()
   {
     //Your Date
-    $date =Carbon::now()->subDays(1)->toDateString();
-    Excel::import(new DomainImport("United States"), public_path(sprintf("whois/%s/country-specific-database/united_states.csv",$date)));
-dd("here");
+    $date = Carbon::now()->subDays(1)->toDateString();
+//
+//    //Import United States Domains
+//    $usJob = (new ImportUSDomains($date));
+//    dispatch($usJob);
+////      Excel::import(new DomainImport("United States"), public_path(sprintf("whois/%s/country-specific-database/united_states.csv",$date)));
+//    //Import Canadian Domains
+//    $caJob = (new ImportCADomains($date));
+//    dispatch($caJob);
+//
+////      Excel::import(new DomainImport("Canada"), public_path(sprintf("whois/%s/country-specific-database/canada.csv", $date)));
+//    //Import Uk Domains
+//    $ukJob = (new ImportUKDomains($date));
+//    dispatch($ukJob);
+//
+//    dd('here');
     //Your username.
     $username = '2020-11-01';
     //Your password.
@@ -76,11 +92,18 @@ dd("here");
     //Read Csv Files and seed db
     if ($response) {
       //Import United States Domains
-      Excel::import(new DomainImport("United States"), public_path(sprintf("whois/%s/country-specific-database/united_states.csv",$date)));
+      $usJob = (new ImportUSDomains($date))->onQueue('importUSDomains');
+      dispatch($usJob);
+//      Excel::import(new DomainImport("United States"), public_path(sprintf("whois/%s/country-specific-database/united_states.csv",$date)));
       //Import Canadian Domains
-      Excel::import(new DomainImport("Canada"), public_path(sprintf("whois/%s/country-specific-database/canada.csv", $date)));
+      $caJob = (new ImportCADomains($date))->onQueue('importCADomains');
+      dispatch($caJob);
+
+//      Excel::import(new DomainImport("Canada"), public_path(sprintf("whois/%s/country-specific-database/canada.csv", $date)));
       //Import Uk Domains
-      Excel::import(new DomainImport("United Kingdom"), public_path(sprintf("whois/%s/country-specific-database/united_kingdom.csv", $date)));
+      $ukJob = (new ImportUKDomains($date))->onQueue('importUKDomains');
+      dispatch($ukJob);
+//      Excel::import(new DomainImport("United Kingdom"), public_path(sprintf("whois/%s/country-specific-database/united_kingdom.csv", $date)));
     }
 
     return 0;

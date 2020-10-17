@@ -181,3 +181,4 @@ Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
