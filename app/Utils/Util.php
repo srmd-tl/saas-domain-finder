@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Http;
 class Util
 {
   /**
+   * @param string $domain
    * @return GTMetrixTest
    * @throws \Entrecore\GTMetrixClient\GTMetrixConfigurationException
    * @throws \Entrecore\GTMetrixClient\GTMetrixException
    */
-  public function callToGtMetrix(): GTMetrixTest
+  public function callToGtMetrix(string $domain): GTMetrixTest
   {
     $client = new GTMetrixClient();
     $client->setUsername("sarmadking@gmail.com");
@@ -25,7 +26,7 @@ class Util
     $client->getLocations();
     $client->getBrowsers();
 
-    $test = $client->startTest("http://www.measurement2000.com");
+    $test = $client->startTest("http://".$domain);
 
 
     //Wait for result

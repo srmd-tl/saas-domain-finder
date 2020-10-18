@@ -17,10 +17,6 @@ Route::get('isPresent', function () {
 
 
 });
-Route::get('report', function () {
-  $util = new \App\Utils\Util();
-  $util->callToGtMetrix();
-});
 
 Route::get('/users', 'UsersController@index')->name('users.index');
 
