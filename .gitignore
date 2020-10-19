@@ -16,3 +16,4 @@ yarn-error.log
 /vuexy-shell-scripts
 public/whois
 .idea
+database/database.sqlite
