@@ -8,6 +8,7 @@ Route::get('report/{domain}', function (\App\Domain $domain) {
     abort($e->getMessage());
   }
   if ($report) {
+    dd($report);
     return redirect($report->getReportUrl());
   }
 

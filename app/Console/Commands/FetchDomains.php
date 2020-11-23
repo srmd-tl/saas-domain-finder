@@ -51,6 +51,7 @@ class FetchDomains extends Command
   {
     //Your Date
     $date = Carbon::now()->subDays(1)->toDateString();
+//    $date = "2020-11-20";
 //
 //    //Import United States Domains
 //    $usJob = (new ImportUSDomains($date));
@@ -67,9 +68,9 @@ class FetchDomains extends Command
 //
 //    dd('here');
     //Your username.
-    $username = '2020-11-01';
+    $username = '2020-12-31';
     //Your password.
-    $password = '3CHf7ZJfQ541';
+    $password = '$d@]4RY}.5X6';
     try {
       $response = self::curlCall($username, $password, $date);
 
@@ -187,3 +188,4 @@ class FetchDomains extends Command
 }
 
 //curl --request GET  --url https://global.whoisdatacenter.com/2020-10-11.zip  --header 'authorization: Basic MjAyMC0xMS0wMTozQ0hmN1pKZlE1NDE=' -O -J
+//wget --user="2020-12-31" --password="$d@]4RY}.5X6" Https://global.whoisdatacenter.com/2020-11-22-global-email.csv
