@@ -13,7 +13,9 @@ use App\Http\Controllers\LanguageController;
 |
 */
 Route::get('isPresent', function () {
-
+  $url = "https://website-contacts.whoisxmlapi.com/api/v1?apiKey=at_lpN9szagQX0XUoqpL56OYoEO61DAx&domainName=asdsa.com";
+  $data =\App\Helpers\Helper::getDomainInfo($url);
+  dd($data);
 
 
 });

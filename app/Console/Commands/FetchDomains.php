@@ -50,7 +50,7 @@ class FetchDomains extends Command
   public function handle()
   {
     //Your Date
-    $date = Carbon::now()->subDays(1)->toDateString();
+    $date = Carbon::now()->subDays(2)->toDateString();
 //    $date = "2020-11-20";
 //
 //    //Import United States Domains

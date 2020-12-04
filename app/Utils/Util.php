@@ -26,7 +26,7 @@ class Util
     $client->getLocations();
     $client->getBrowsers();
 
-    $test = $client->startTest("http://".$domain);
+    $test = $client->startTest("http://" . $domain);
 
 
     //Wait for result
@@ -45,11 +45,9 @@ class Util
   public function sitePresenceCheck(string $url)
   {
     $data = Http::get($url);
-    if($data->status()==200)
-    {
+    if ($data->status() == 200) {
       return $data->body();
-    }
-    else{
+    } else {
       throw new \Exception("Site is down");
     }
   }

@@ -83,7 +83,7 @@ mix.then(() => {
         console.log(err);
       }
     });
-    // exec('./node_modules/rtlcss/bin/rtlcss.js -d -e ".css" ./public/css/ ./public/css/');
+    exec('./node_modules/rtlcss/bin/rtlcss.js -d -e ".css" ./public/css/ ./public/css/');
   }
 });
 
