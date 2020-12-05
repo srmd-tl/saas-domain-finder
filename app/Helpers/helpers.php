@@ -8,7 +8,8 @@ class Helper
 {
   public static function getDomainInfo(string $domain): array
   {
-    $data = \Illuminate\Support\Facades\Http::get($domain);
+    $url = sprintf("https://website-contacts.whoisxmlapi.com/api/v1?apiKey=at_lpN9szagQX0XUoqpL56OYoEO61DAx&domainName=%s", $domain);
+    $data = \Illuminate\Support\Facades\Http::get($url);
     return $data->json();
   }
 

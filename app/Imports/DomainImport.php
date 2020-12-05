@@ -29,39 +29,39 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
     $util = new \App\Utils\Util();
     foreach ($rows as $row) {
       $domain = Domain::whereName($row[1])->first();
-      if (!$domain) {
+//      if (!$domain) {
 
-        $isPresent = true;
-        $websiteScrapedData = [];
-        try {
-          $body = $util->sitePresenceCheck($row[1]);
-        } catch (\Exception $exception) {
-          $isPresent = false;
-        }
-        if ($isPresent) {
-          $websiteScrapedData = (self::scrapeWebsiteData($body, $isPresent));
-          //Call to api to fetch social links,emails,phones,postal address
-          $data = \App\Helpers\Helper::getDomainInfo($row[1]);
-
-
-        }
-        Domain::create([
-          'name' => $row[1],
-          'region' => $this->country,
-          'create_date' => $row[3],
-          'expiry_date' => $row[5],
-          'name_servers' => $row[50] ?? "NA",
-          'is_present' => $isPresent,
-          'title' => $websiteScrapedData["title"] ?? null,
-          'description' => $websiteScrapedData["description"] ?? null,
-          'facebook' => $data['socialLinks']['facebook'] ?? null,
-          'twitter' => $data['socialLinks']['twitter'] ?? null,
-          'instagram' => $data['socialLinks']['instagram'] ?? null,
-          'linkedin' => $data['socialLinks']['linkedIn'] ?? null,
-          'phone_number' => $data['phones'] ? $data['phones'][0] : null,
-          'email' => $data['emails'] ? $data['emails'][0] : null
-        ]);
+      $isPresent = true;
+      $websiteScrapedData = [];
+      try {
+        $body = $util->sitePresenceCheck($row[1]);
+      } catch (\Exception $exception) {
+        $isPresent = false;
       }
+      if ($isPresent) {
+        $websiteScrapedData = (self::scrapeWebsiteData($body, $isPresent));
+        //Call to api to fetch social links,emails,phones,postal address
+        $data = \App\Helpers\Helper::getDomainInfo($row[1]);
+
+
+      }
+      Domain::create([
+        'name' => $row[1],
+        'region' => $this->country,
+        'create_date' => $row[3],
+        'expiry_date' => $row[5],
+        'name_servers' => $row[50] ?? "NA",
+        'is_present' => $isPresent,
+        'title' => $websiteScrapedData["title"] ?? null,
+        'description' => $websiteScrapedData["description"] ?? null,
+        'facebook' => $data['socialLinks']['facebook'] ?? null,
+        'twitter' => $data['socialLinks']['twitter'] ?? null,
+        'instagram' => $data['socialLinks']['instagram'] ?? null,
+        'linkedin' => $data['socialLinks']['linkedIn'] ?? null,
+        'phone_number' => $data['phones'] ? $data['phones'][0] : null,
+        'email' => $data['emails'] ? $data['emails'][0] : null
+      ]);
+//      }
     }
 
   }
