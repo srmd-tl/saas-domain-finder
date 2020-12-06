@@ -26,6 +26,17 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
    */
   public function collection(Collection $rows)
   {
+    $data=[
+      "facebook"=>"",
+      "twitter"=>"",
+      "instagram"=>"",
+      "linkedin"=>"",
+      "email"=>[
+        [
+          "email"=>""
+        ]
+      ]
+    ];
     $util = new \App\Utils\Util();
     foreach ($rows as $row) {
       $domain = Domain::whereName($row[1])->first();
@@ -40,9 +51,11 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
       }
       if ($isPresent) {
         $websiteScrapedData = (self::scrapeWebsiteData($body, $isPresent));
-        //Call to api to fetch social links,emails,phones,postal address
-        $data = \App\Helpers\Helper::getDomainInfo($row[1]);
-
+        if($isPresent)
+        {
+          //Call to api to fetch social links,emails,phones,postal address
+          $data = \App\Helpers\Helper::getDomainInfo($row[1]);
+        }
 
       }
       Domain::create([
@@ -58,7 +71,7 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
         'twitter' => $data['socialLinks']['twitter'] ?? null,
         'instagram' => $data['socialLinks']['instagram'] ?? null,
         'linkedin' => $data['socialLinks']['linkedIn'] ?? null,
-        'phone_number' => $data['phones'] ? $data['phones'][0] : null,
+//        'phone_number' => $data['phones'] ? $data['phones'][0] : null,
         'email' => $data['emails'] ? $data['emails'][0]['email'] : null
       ]);
 //      }
