@@ -59,7 +59,7 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
         'instagram' => $data['socialLinks']['instagram'] ?? null,
         'linkedin' => $data['socialLinks']['linkedIn'] ?? null,
         'phone_number' => $data['phones'] ? $data['phones'][0] : null,
-        'email' => $data['emails'] ? $data['emails'][0] : null
+        'email' => $data['emails'] ? $data['emails'][0]['email'] : null
       ]);
 //      }
     }
