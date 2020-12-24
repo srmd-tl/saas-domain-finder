@@ -16,3 +16,11 @@ Route::get('report/{domain}', function (\App\Domain $domain) {
 
 //Domains Routes
 Route::get('domains', 'DomainController@index')->name('domains.index');
+
+//Stripe routes
+
+Route::prefix('admin')->group(function(){
+  Route::get('stripe/products','StripeProductController@index')->name('stripeProduct.index');
+  Route::post('stripe/products','StripeProductController@store')->name('stripeProduct.store');
+});
+
