@@ -32,9 +32,20 @@ class StripeProductController extends Controller
       "stripe_product_id" => $product->id,
       "amount" => $request->amount,
       "view" => $request->view,//how much domains he can view
-      "interval" => $request->interval,
+      "interval" => $request->interval ?? "Monthly",
       "stripe_price_id" => $price->id
     ]);
     return back()->withSuccess("Product Saved");
+  }
+
+  public function create()
+  {
+    return view('stripe.product.create');
+  }
+
+  public function index()
+  {
+    $data = [StripeProduct::all()];
+    return view('stripe.product.list',$data);
   }
 }

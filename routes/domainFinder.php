@@ -19,8 +19,9 @@ Route::get('domains', 'DomainController@index')->name('domains.index');
 
 //Stripe routes
 
-Route::prefix('admin')->group(function(){
-  Route::get('stripe/products','StripeProductController@index')->name('stripeProduct.index');
-  Route::post('stripe/products','StripeProductController@store')->name('stripeProduct.store');
+Route::prefix('admin')->group(function () {
+  Route::get('stripe-products', 'StripeProductController@index')->name('stripeProduct.index');
+  Route::post('stripe-product', 'StripeProductController@store')->name('stripeProduct.store');
+  Route::get('stripe-product/create', 'StripeProductController@create')->name('stripeProduct.create');
 });
 
