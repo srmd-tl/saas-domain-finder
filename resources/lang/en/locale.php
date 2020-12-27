@@ -142,5 +142,6 @@ return [
     "Access Control"=>"Access Control",
     "File Manager" => "File Manager",
     "Pricing" => "Pricing",
-    "Domains" => "Domains"
+    "Domains" => "Domains",
+    "Stripe Products"=>"Stripe Products"
 ];

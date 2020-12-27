@@ -28,6 +28,7 @@ $configData = Helper::applClasses();
       {{-- Foreach menu item starts --}}
       @if(isset($menuData[0]))
       @foreach($menuData[0]->menu as $menu)
+        @if(($menu->gate==0)||$menu->gate==auth()->user()->id)
       @if(isset($menu->navheader))
       <li class="navigation-header">
         <span>{{ $menu->navheader }}</span>
@@ -59,6 +60,7 @@ $configData = Helper::applClasses();
         @endif
       </li>
       @endif
+          @endif
       @endforeach
       @endif
       {{-- Foreach menu item ends --}}
