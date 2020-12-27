@@ -25,3 +25,7 @@ Route::prefix('admin')->group(function () {
   Route::get('stripe-product/create', 'StripeProductController@create')->name('stripeProduct.create');
 });
 
+
+
+//Stripe Billing Routes For Guest User
+Route::get('pricing', 'BillingController@pricing')->name('index.pricing');
