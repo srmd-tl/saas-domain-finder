@@ -20,7 +20,7 @@ class CreateStripeProducts extends Migration
       $table->string("stripe_product_id");
       $table->double("amount");
       $table->integer("view")->comment("how much domains he can view");
-      $table->integer("interval");
+      $table->string("interval");
       $table->string("stripe_price_id");
     });
   }

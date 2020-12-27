@@ -6,7 +6,16 @@
 @section('content')
   <!-- Basic Inputs Groups start -->
   @if($errors->any())
-    {{ implode('', $errors->all('<div>:message</div>')) }}
+    @foreach($errors->all() as $error)
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <p class="mb-0">
+          {{$error}}
+        </p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      @endforeach
   @endif
   <section id="basic-input-groups">
     <div class="row">

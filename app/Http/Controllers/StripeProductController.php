@@ -24,7 +24,7 @@ class StripeProductController extends Controller
       return back()->withErrors($e->getMessage());
     }
     try {
-      $price = $this->storePlan($request->price, $product->id);
+      $price = $this->storePlan($request->amount, $product->id);
     } catch (\Exception $e) {
       return back()->withErrors($e->getMessage());
 
