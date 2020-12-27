@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ichat Pricing</title>
+  <title>DomainFinder Pricing</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="{{asset('css/pricing.css')}}">
 </head>
@@ -24,18 +24,16 @@
             </div>
             <p>{{$pricing->description}}</p>
             <div class="features">
-              <h4><span class="feature">Allowed Files</span> : <span class="value">{{$pricing->allowed_files}}</span></h4>
-              <h4><span class="feature">Allowed Links</span> : <span class="value">{{$pricing->quantity}}</span></h4>
-              <h4><span class="feature">Allowed Storage</span> : <span class="value">{{$pricing->storage}}</span></h4>
+              <h4><span class="feature">Allowed Views</span> : <span class="value">{{$pricing->view}}</span></h4>
               <h4><span class="feature">Duration</span> : <span class="value">{{ucfirst($pricing->interval)}}</span></h4>
             </div>
             <div class="price">
-              <h4>$ {{$pricing->cost}}</h4>
+              <h4>$ {{$pricing->amount}}</h4>
             </div>
             <form method="POST" action="{{route('update.paymentMethod')}}">
               @csrf
               <input type="hidden" name="planName" value="{{$pricing->name}}">
-              <input type="hidden" name="planId" value="{{$pricing->plan_id}}">
+              <input type="hidden" name="planId" value="{{$pricing->stripe_price_id}}">
               <button class="btn btn-block btn-outline-primary" type="submit">BUY NOW</button>
             </form>
           </div>

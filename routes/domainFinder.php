@@ -29,3 +29,12 @@ Route::prefix('admin')->group(function () {
 
 //Stripe Billing Routes For Guest User
 Route::get('pricing', 'BillingController@pricing')->name('index.pricing');
+Route::post('update/paymentMethod', 'BillingController@updatePaymentMethod')->name('update.paymentMethod');
+Route::post('add/subscription', 'BillingController@addSubscription')->name('add.subscription');
+
+
+//Unimplemented routes
+Route::resource('user','UserController');
+Route::post('planstore',function(){})->name('plan.store');
+
+Route::post('clientstore',function(){})->name('client.store');

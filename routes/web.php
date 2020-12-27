@@ -23,7 +23,7 @@ Route::get('isPresent', function () {
 Route::get('/users', 'UsersController@index')->name('users.index');
 
 // Route url
-Route::get('/', 'DashboardController@dashboardAnalytics')->middleware('auth');
+Route::get('/', 'DashboardController@dashboardAnalytics')->middleware('auth')->name('index');
 
 // Route Dashboards
 Route::get('/dashboard-analytics', 'DashboardController@dashboardAnalytics');

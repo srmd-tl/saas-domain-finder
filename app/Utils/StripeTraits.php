@@ -44,7 +44,7 @@ trait StripeTraits
   private function initClient(): StripeClient
   {
     return new StripeClient(
-      env("STRIPE_SK"));
+      env("STRIPE_KEY"));
   }
 
   /**
