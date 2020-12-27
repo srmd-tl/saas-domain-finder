@@ -5,6 +5,9 @@
 
 @section('content')
   <!-- Basic Inputs Groups start -->
+  @if($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+  @endif
   <section id="basic-input-groups">
     <div class="row">
       <div class="col-md-12">

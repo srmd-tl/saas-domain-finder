@@ -14,7 +14,7 @@ class StripeProductController extends Controller
   {
     $request->validate([
       "name" => "required",
-      "price" => "required"
+      "amount" => "required"
     ]);
     try {
       $product = $this->storeProduct($request->name);
@@ -45,7 +45,7 @@ class StripeProductController extends Controller
 
   public function index()
   {
-    $data = [StripeProduct::all()];
+    $data = ["products"=>StripeProduct::all()];
     return view('stripe.product.list',$data);
   }
 }
