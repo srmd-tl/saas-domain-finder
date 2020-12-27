@@ -6,6 +6,7 @@ namespace App\Utils;
 
 use Exception;
 use Stripe\Exception\ApiErrorException;
+use Stripe\Plan;
 use Stripe\Price;
 use Stripe\Product;
 use Stripe\StripeClient;
@@ -44,22 +45,23 @@ trait StripeTraits
   private function initClient(): StripeClient
   {
     return new StripeClient(
-      env("STRIPE_KEY"));
+      env("STRIPE_SECRET"));
   }
 
   /**
    * @param int $price
    * @param string $productId
-   * @return Price
+   * @return Plan
    * @throws Exception
    */
-  public function storePlan(int $price, string $productId): Price
+  public function storePlan(int $price, string $productId): Plan
   {
     try {
-      $plan = $this->initClient()->prices->create([
-        'unit_amount' => $price,
+      $plan = $this->initClient()->plans->create([
+        'amount' => $price,
         'currency' => 'usd',
         'product' => $productId,
+        'interval' => 'month',
       ]);
     } catch (ApiErrorException $e) {
       throw new Exception($e->getMessage());
