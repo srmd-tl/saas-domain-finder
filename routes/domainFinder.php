@@ -41,7 +41,8 @@ Route::post('clientstore', function () {
 })->name('client.store');
 
 //Logout
-Route::post('logout', function () {
-  auth()->user()->logout();
-  
+Route::any('logout', function () {
+  \Illuminate\Support\Facades\Auth::logout();
+  return redirect()->route('login');
+
 })->name('logout');

@@ -46,6 +46,13 @@
       "icon": "feather icon-life-buoy",
       "i18n": "nav.raise_support",
       "gate": 1
+    },
+    {
+      "url": "/logout",
+      "name": "Logout",
+      "icon": "feather icon-log-out",
+      "i18n": "nav.raise_support",
+      "gate": 0
     }
   ]
 }

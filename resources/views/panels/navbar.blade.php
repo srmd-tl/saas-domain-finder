@@ -154,7 +154,7 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-divider"></div><a class="dropdown-item" href="auth-login"><i
                     class="feather icon-power"></i> Logout</a>
-                <form id="logout-form" action="login" method="POST" style="display: none;">
+                <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                   @csrf
                 </form>
               </div>
