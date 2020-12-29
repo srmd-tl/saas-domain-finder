@@ -86,6 +86,7 @@ class DomainsDataTable extends DataTable
         ->printable(false)
         ->width(60)
         ->addClass('text-center'),
+      Column::make('is_present'),
       Column::make('id'),
       Column::make('name'),
       Column::make('region'),
