@@ -36,10 +36,11 @@ class DomainsDataTable extends DataTable
         }
       })
       ->editColumn('name', function ($data) {
-        return '<a target="_blank" href="' . $data->name . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+        return '<a target="_blank" href="http://www.' . $data->name . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                      ' . $data->name . '
                  </a>';
-      });
+      })
+      ->escapeColumns('name');
 
   }
 
