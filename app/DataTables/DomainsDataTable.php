@@ -35,11 +35,11 @@ class DomainsDataTable extends DataTable
           return 'No';
         }
       })
-      ->addColumn('name', function ($data) {
+      ->editColumn('name', function ($data) {
         return '<a target="_blank" href="' . $data->name . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                     $data->name
-                     </a>';
-      });;
+                     ' . $data->name . '
+                 </a>';
+      });
 
   }
 
