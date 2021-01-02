@@ -36,11 +36,9 @@ class DomainsDataTable extends DataTable
         }
       })
       ->addColumn('name', function ($data) {
-        return '<td > <div class="d-flex"> <a target="_blank" href="' . $data->name . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+        return '<a target="_blank" href="' . $data->name . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                      $data->name
-                     </a>
-
-                     </div></td>';
+                     </a>';
       });;
 
   }
