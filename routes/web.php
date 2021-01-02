@@ -69,7 +69,7 @@ Route::get('/card-basic', 'CardsController@card_basic');
 Route::get('/card-advance', 'CardsController@card_advance');
 Route::get('/card-statistics', 'CardsController@card_statistics');
 Route::get('/card-analytics', 'CardsController@card_analytics');
-Route::get('/card-actions', 'CardsController@card_actions');
+  Route::get('/card-actions', 'CardsController@card_actions');
 
 // Route Components
 Route::get('/component-alert', 'ComponentsController@alert');
