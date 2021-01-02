@@ -93,7 +93,11 @@ class DomainsDataTable extends DataTable
         ->addClass('text-center'),
       Column::make('is_present'),
       Column::make('id'),
-      Column::computed('name'),
+      Column::computed('name')
+        ->exportable(false)
+        ->printable(false)
+        ->width(60)
+        ->addClass('text-center'),
       Column::make('region'),
       Column::make('create_date'),
       Column::make('expiry_date'),
