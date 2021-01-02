@@ -11,7 +11,6 @@ Route::group(["middleware" => ["auth", "is_subscriber"]], function () {
       abort($e->getMessage());
     }
     if ($report) {
-      dd($report);
       return redirect($report->getReportUrl());
     }
 
