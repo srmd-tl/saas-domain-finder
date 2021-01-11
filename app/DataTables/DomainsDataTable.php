@@ -52,7 +52,7 @@ class DomainsDataTable extends DataTable
    */
   public function query(Domain $model)
   {
-    return $model->newQuery();
+    return $model->newQuery()->limit(request()->user()->subscriptions()->first()->quantity);
   }
 
   /**
