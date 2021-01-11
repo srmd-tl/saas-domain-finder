@@ -20,7 +20,7 @@ class BillingController extends Controller
   public function singleCharge(Request $request)
   {
     $stripeCharge = $request->user()->charge(
-      100, $request->paymentMethodId
+      100, $request->paymentMethodId);
   }
 
   /**
