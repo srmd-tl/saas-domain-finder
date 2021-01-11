@@ -17,6 +17,12 @@ class BillingController extends Controller
     return auth()->user()->newSubscription('default', $request->planName)->create($request->paymentMethod);
   }
 
+  public function singleCharge(Request $request)
+  {
+    $stripeCharge = $request->user()->charge(
+      100, $request->paymentMethodId
+  }
+
   /**
    * Update Payment Method View
    * @param planName

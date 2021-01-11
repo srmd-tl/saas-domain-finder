@@ -31,6 +31,11 @@ Route::prefix('admin')->group(function () {
 Route::get('pricing', 'BillingController@pricing')->name('index.pricing');
 Route::post('update/paymentMethod', 'BillingController@updatePaymentMethod')->name('update.paymentMethod');
 Route::post('add/subscription', 'BillingController@addSubscription')->name('add.subscription');
+//single charge
+Route::post('purchase','BillingContrller@singleCharge')->name('single.charge');
+
+  // ...
+});
 //Unimplemented routes
 Route::resource('user', 'UserController');
 Route::post('planstore', function () {
