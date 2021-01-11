@@ -54,7 +54,6 @@ Route::any('logout', function () {
 
 //Stripe Webhook
 Route::post('webhook/stripe', function () {
-  echo "hello there" . PHP_EOL;
   $payload = @file_get_contents('php://input');
   $event = null;
 
@@ -70,29 +69,21 @@ Route::post('webhook/stripe', function () {
 
 // Handle the event
   switch ($event->type) {
-    case 'payment_intent.succeeded':
-      $paymentIntent = $event->data->object; // contains a \Stripe\PaymentIntent
-      // Then define and call a method to handle the successful payment intent.
-      // handlePaymentIntentSucceeded($paymentIntent);
-      break;
-    case 'payment_method.attached':
-      $paymentMethod = $event->data->object; // contains a \Stripe\PaymentMethod
-      // Then define and call a method to handle the successful attachment of a PaymentMethod.
-      // handlePaymentMethodAttached($paymentMethod);
-      break;
-    // ... handle other event types
-    case 'invoice.updated':
-      $invoice =$event->data->object;
-      print_r($invoice);
-    case 'invoice.payment_succeeded':
-      $invoice =$event->data->object;
-      if($invoice)
-      {
-        $customerId=  $invoice->customer;
+    case 'invoice.created':
+      $invoice = $event->data->object;
+      if ($invoice) {
+        $customerId = $invoice->customer;
         $user = User::whereStripeId($customerId)->first();
-//        $user->update(['domainsView'=>]);
+        $lines = $invoice->lines->data[0];
+        if ($lines->subscription ?? false) {
+          $product = $lines->product;
+          $stripeProduct = \App\StripeProduct::whereStripeProductId($product)->firstOrFail();
+          $user->subscriptions[0]->update(["quantity" => $user->subscriptions[0]->quantity + $stripeProduct->view]);
+
+        }
       }
-      print_r($user);
+      break;
+
     default:
       echo 'Received unknown event type ' . $event->type;
   }
