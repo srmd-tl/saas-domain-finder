@@ -50,8 +50,8 @@ Route::any('logout', function () {
   return redirect()->route('login');
 
 })->name('logout');
-
-
+//Campaign
+Route::resource('campaign', \App\Http\Controllers\CampaignController::class);
 //Stripe Webhook
 Route::post('webhook/stripe', function () {
   $payload = @file_get_contents('php://input');
