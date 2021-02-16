@@ -15,6 +15,13 @@
       "gate": 1
     },
     {
+      "url": "/users",
+      "name": "Users",
+      "icon": "feather icon-user",
+      "i18n": "nav.raise_support",
+      "gate": 1
+    },
+    {
       "url": "/logout",
       "name": "Logout",
       "icon": "feather icon-log-out",

@@ -144,5 +144,6 @@ return [
   "Pricing" => "Pricing",
   "Domains" => "Domains",
   "Stripe Products" => "Stripe Products",
-  "Logout" => "Logout"
+  "Logout" => "Logout",
+  "Users"=>"Users"
 ];
