@@ -32,7 +32,7 @@ class UsersDataTable extends DataTable
                      <form action="' . route('users.destroy', $user->id) . '" method="POST">
                      <input type="hidden" name="_token" value="'.csrf_token().'">
                       <input type="hidden" name="_method" value="DELETE">
-                        <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                        <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="Delete">
                      <i class="la la-edit"></i>
                      Delete User
                      </button>
