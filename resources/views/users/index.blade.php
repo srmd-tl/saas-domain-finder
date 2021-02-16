@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts/contentLayoutMaster')
+
+@section('title', 'Users Table')
+
 
 @section('content')
   {{$dataTable->table()}}

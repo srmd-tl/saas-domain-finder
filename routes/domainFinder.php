@@ -37,7 +37,7 @@ Route::post('add/subscription', 'BillingController@addSubscription')->name('add.
 //single charge
 Route::post('purchase', 'BillingController@singleCharge')->name('single.charge');
 //Unimplemented routes
-Route::resource('user', 'UserController');
+Route::resource('users', UsersController::class);
 Route::post('planstore', function () {
 })->name('plan.store');
 

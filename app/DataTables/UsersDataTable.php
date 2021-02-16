@@ -21,7 +21,26 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'users.action');
+          ->addColumn('action', function (User $user) {
+            return '<td > <div class="d-flex"> <a href="' . route('users.edit', $user->id) . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                     <i class="la la-edit"></i>
+                     Edit User
+                     </a>
+
+                     </div></td> '.
+              '<td > <div class="d-flex">
+                     <form action="' . route('users.destroy', $user->id) . '" method="POST">
+                     <input type="hidden" name="_token" value="'.csrf_token().'">
+                      <input type="hidden" name="_method" value="DELETE">
+                        <button  class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                     <i class="la la-edit"></i>
+                     Delete User
+                     </button>
+                     </form>
+
+
+                     </div></td> ';
+          });
     }
 
     /**
@@ -50,9 +69,6 @@ class UsersDataTable extends DataTable
                     ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
                         Button::make('reload')
                     );
     }
@@ -71,7 +87,8 @@ class UsersDataTable extends DataTable
                   ->width(60)
                   ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
+            Column::make('name'),
+            Column::make('email'),
             Column::make('created_at'),
             Column::make('updated_at'),
         ];
