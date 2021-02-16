@@ -86,8 +86,8 @@ class DomainsDataTable extends DataTable
   {
     return [
       Column::computed('action')
-        ->exportable(false)
-        ->printable(false)
+        ->exportable(true)
+        ->printable(true)
         ->width(60)
         ->addClass('text-center'),
       Column::make('is_present'),
