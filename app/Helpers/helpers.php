@@ -31,7 +31,7 @@ class Helper
     // default data array
     $DefaultData = [
       'mainLayoutType' => 'vertical',
-      'theme' => 'light',
+      'theme' => 'dark',
       'sidebarCollapsed' => false,
       'navbarColor' => '',
       'horizontalMenuType' => 'floating',
@@ -44,10 +44,8 @@ class Helper
       'defaultLanguage' => 'en',
       'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'),
     ];
-
     // if any key missing of array from custom.php file it will be merge and set a default value from dataDefault array and store in data variable
     $data = array_merge($DefaultData, config('custom.custom'));
-
     // All options available in the template
     $allOptions = [
       'mainLayoutType' => array('vertical', 'horizontal'),
