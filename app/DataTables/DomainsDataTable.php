@@ -68,9 +68,13 @@ class DomainsDataTable extends DataTable
       ->minifiedAjax()
       ->dom('Bfrtip')
       ->orderBy(1)
-      ->buttons(
-        Button::make('export')
-      );
+      ->parameters([
+
+        'dom'          => 'Bfrtip',
+
+        'buttons'      => ['excel', 'csv'],
+
+      ]);
   }
 
   /**
