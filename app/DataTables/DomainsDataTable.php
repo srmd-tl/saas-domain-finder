@@ -102,6 +102,7 @@ class DomainsDataTable extends DataTable
       Column::make('name_servers'),
       Column::make('create_date'),
       Column::make('expiry_date'),
+      Column::make('domain_registrar_name')
     ];
   }
 
