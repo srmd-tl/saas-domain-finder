@@ -69,11 +69,7 @@ class DomainsDataTable extends DataTable
       ->dom('Bfrtip')
       ->orderBy(1)
       ->buttons(
-        Button::make('create'),
-        Button::make('export'),
-        Button::make('print'),
-        Button::make('reset'),
-        Button::make('reload')
+        Button::make('export')
       );
   }
 
@@ -87,7 +83,6 @@ class DomainsDataTable extends DataTable
     return [
       Column::computed('action')
         ->exportable(true)
-        ->printable(false)
         ->width(60)
         ->addClass('text-center'),
       Column::make('is_present'),
@@ -98,10 +93,11 @@ class DomainsDataTable extends DataTable
         ->width(60)
         ->addClass('text-center'),
       Column::make('region'),
+      Column::make('title'),
+      Column::make('description'),
+      Column::make('name_servers'),
       Column::make('create_date'),
       Column::make('expiry_date'),
-      Column::make('created_at'),
-      Column::make('updated_at'),
     ];
   }
 
