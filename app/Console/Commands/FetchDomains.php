@@ -51,7 +51,7 @@ class FetchDomains extends Command
   {
     //Fetch Credentails
     $domainFinder = Helper::fetchServicesFromYaml();
-    $domainFinderCreds = ExternalService::whereServiceName($domainFinder)->firstOrFail();
+    $domainFinderCreds = ExternalService::whereServiceName($domainFinder[array_search("DomainFinder", $domainFinder)])->firstOrFail();
     if (!$domainFinderCreds) {
       Logger::ALERT("Credentails Not FOund");
       throw new \Exception("Credentails Not Found");
