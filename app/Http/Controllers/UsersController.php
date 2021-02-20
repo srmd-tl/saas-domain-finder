@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
+use App\Repositories\UserRepository;
+use App\StripeProduct;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+
   public function index(UsersDataTable $dataTable)
   {
     return $dataTable->render('users.index');
@@ -17,16 +20,18 @@ class UsersController extends Controller
 
   public function create()
   {
-    return view("users.create");
+    $packages = StripeProduct::all();
+    return view("users.create", ["packages" => $packages]);
   }
 
-  public function store(Request $request)
+  public function store(Request $request,UserRepository $userRepo)
   {
     $request->validate(
       [
         "name" => "required",
         "email" => "required|unique:users",
-        "password" => "required"
+        "password" => "required",
+        "package"=>"required"
       ]
     );
     $data = [
@@ -34,7 +39,8 @@ class UsersController extends Controller
       "email" => $request->email,
       "password" => Hash::make($request->password)
     ];
-    User::create($data);
+    $user=User::create($data);
+    $userRepo->addUserSubscription($user->id,$request->package);
     return redirect()->route("users.index")->withSuccess("User added");
   }
 

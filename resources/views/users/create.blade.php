@@ -48,6 +48,23 @@
                     </fieldset>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-4 col-12 mb-1">
+                    <fieldset class="form-group">
+                      <label for="basicInputPackage">Select Package</label>
+                      <select name="package" class="form-control" required>
+                        <option selected default>Select Package</option>
+                        @forelse($packages as $package)
+                        <option value="{{$package->id}}">{{$package->name}}</option>
+                        @empty
+                          <option>Nothing Found</option>
+                        @endforelse
+                      </select>
+                    </fieldset>
+                  </div>
+
+                </div>
+
                 <button class="btn btn-md btn-primary">Save</button>
               </form>
             </div>
@@ -55,6 +72,7 @@
         </div>
       </div>
     </div>
+
   </section>
   <!-- Basic Inputs Groups end -->
 @endsection
