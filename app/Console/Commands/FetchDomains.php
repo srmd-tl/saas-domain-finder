@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\ExternalService;
+use App\Helpers\Helper;
 use App\Jobs\ImportCADomains;
 use App\Jobs\ImportUKDomains;
 use App\Jobs\ImportUSDomains;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\DomainImport;
+use Monolog\Logger;
 
 /**
  * Class FetchDomains
@@ -49,6 +49,14 @@ class FetchDomains extends Command
    */
   public function handle()
   {
+    //Fetch Credentails
+    $domainFinder = Helper::fetchServicesFromYaml();
+    $domainFinderCreds = ExternalService::whereServiceName($domainFinder)->firstOrFail();
+    if (!$domainFinderCreds) {
+      Logger::ALERT("Credentails Not FOund");
+      throw new \Exception("Credentails Not Found");
+    }
+
     //Your Date
     $date = Carbon::now()->subDays(2)->toDateString();
 //    $date = "2020-11-20";
@@ -68,9 +76,9 @@ class FetchDomains extends Command
 //
 //    dd('here');
     //Your username.
-    $username = '2020-12-31';
+    $username = $domainFinderCreds->username;
     //Your password.
-    $password = '$d@]4RY}.5X6';
+    $password = $domainFinderCreds->password;
     try {
       $response = self::curlCall($username, $password, $date);
 

@@ -3,9 +3,16 @@
 namespace App\Helpers;
 
 use Config;
+use Symfony\Component\Yaml\Yaml;
 
 class Helper
 {
+  public static function fetchServicesFromYaml()
+  {
+    $filePath = (public_path() . '/services.yml');
+    $services = Yaml::parse(file_get_contents($filePath));
+    return $services;
+  }
   public static function getDomainInfo(string $domain): array
   {
     $url = sprintf("https://website-contacts.whoisxmlapi.com/api/v1?apiKey=at_lpN9szagQX0XUoqpL56OYoEO61DAx&domainName=%s", $domain);
