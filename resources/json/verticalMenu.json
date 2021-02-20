@@ -22,6 +22,13 @@
       "gate": 1
     },
     {
+      "url": "/admin/external-services",
+      "name": "External Services",
+      "icon": "feather icon-box",
+      "i18n": "nav.raise_support",
+      "gate": 1
+    },
+    {
       "url": "/logout",
       "name": "Logout",
       "icon": "feather icon-log-out",
