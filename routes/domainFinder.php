@@ -29,6 +29,8 @@ Route::prefix('admin')->group(function () {
   Route::get('stripe-products', 'StripeProductController@index')->name('stripeProduct.index');
   Route::post('stripe-product', 'StripeProductController@store')->name('stripeProduct.store');
   Route::get('stripe-product/create', 'StripeProductController@create')->name('stripeProduct.create');
+  //Third Party APIs Setup
+  Route::resource('external-services',ExternalServiceController::class);
 });
 //Stripe Billing Routes For Guest User
 Route::get('pricing', 'BillingController@pricing')->name('index.pricing');
@@ -51,7 +53,7 @@ Route::any('logout', function () {
 
 })->name('logout');
 //Campaign
-Route::resource('campaign', \App\Http\Controllers\CampaignController::class);
+Route::resource('campaign', CampaignController::class);
 //Stripe Webhook
 Route::post('webhook/stripe', function () {
   $payload = @file_get_contents('php://input');
