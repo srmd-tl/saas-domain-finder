@@ -1,6 +1,11 @@
 @php
 $configData = Helper::applClasses();
 @endphp
+<style>
+  .main-menu .navbar-header ul li a img {
+    width: 100%;
+  }
+</style>
 <div
   class="main-menu menu-fixed {{($configData['theme'] === 'light') ? "menu-light" : "menu-dark"}} menu-accordion menu-shadow"
   data-scroll-to-active="true">
@@ -8,8 +13,7 @@ $configData = Helper::applClasses();
     <ul class="nav navbar-nav flex-row">
       <li class="nav-item mr-auto">
         <a class="navbar-brand" href="{{route('domains.index')}}">
-          <div class="brand-logo"></div>
-          <h2 class="brand-text mb-0">Find Website Work</h2>
+          <img src="{{asset('images/logo.png')}}" alt="">
         </a>
       </li>
       <li class="nav-item nav-toggle">
