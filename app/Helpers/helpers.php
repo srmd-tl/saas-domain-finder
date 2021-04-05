@@ -7,6 +7,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class Helper
 {
+  public static function detectChineseUTF8($utf8Str)
+  {
+    return preg_match("/\p{Han}+/u", $utf8Str);
+  }
   public static function fetchServicesFromYaml()
   {
     $filePath = (public_path() . '/services.yml');
