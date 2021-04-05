@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Domain;
+use App\Helpers\Helper;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -58,23 +59,27 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
         }
 
       }
-      Domain::create([
-        'name' => $row[1],
-        'region' => $this->country,
-        'create_date' => $row[3],
-        'expiry_date' => $row[5],
-        'name_servers' => $row[50] ?? "NA",
-        'is_present' => $isPresent,
-        'title' => $websiteScrapedData["title"] ?? null,
-        'description' => $websiteScrapedData["description"] ?? null,
-        'facebook' => $data['socialLinks']['facebook'] ?? null,
-        'twitter' => $data['socialLinks']['twitter'] ?? null,
-        'instagram' => $data['socialLinks']['instagram'] ?? null,
-        'linkedin' => $data['socialLinks']['linkedIn'] ?? null,
+      if(!Helper::detectChineseUTF8($websiteScrapedData["title"]))
+      {
+        Domain::create([
+          'name' => $row[1],
+          'region' => $this->country,
+          'create_date' => $row[3],
+          'expiry_date' => $row[5],
+          'name_servers' => $row[50] ?? "NA",
+          'is_present' => $isPresent,
+          'title' => $websiteScrapedData["title"] ?? null,
+          'description' => $websiteScrapedData["description"] ?? null,
+          'facebook' => $data['socialLinks']['facebook'] ?? null,
+          'twitter' => $data['socialLinks']['twitter'] ?? null,
+          'instagram' => $data['socialLinks']['instagram'] ?? null,
+          'linkedin' => $data['socialLinks']['linkedIn'] ?? null,
 //        'phone_number' => $data['phones'] ? $data['phones'][0] : null,
-        'email' => $data['emails'][0]['email'] ?? null,
-        'domain_registrar_name'=>$row[7]
-      ]);
+          'email' => $data['emails'][0]['email'] ?? null,
+          'domain_registrar_name'=>$row[7]
+        ]);
+      }
+
 //      }
     }
 
