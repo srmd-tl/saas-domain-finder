@@ -59,7 +59,7 @@ class DomainImport implements ToCollection, WithStartRow, WithChunkReading
         }
 
       }
-      if(!Helper::detectChineseUTF8($websiteScrapedData["title"]))
+      if( ($websiteScrapedData["title"]??false) && !Helper::detectChineseUTF8($websiteScrapedData["title"]))
       {
         Domain::create([
           'name' => $row[1],
