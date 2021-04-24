@@ -79,7 +79,43 @@ class FetchDomains extends Command
     $username = $domainFinderCreds->username;
     //Your password.
     $password = $domainFinderCreds->password;
+
+    $usernameForEmailAPI="2024-03-31";
+    $passwordForEmailAPI="PSCXMMD19XC1";
     try {
+      //to get email file
+      $emailResponse = self::dynamicCallCurl(
+        $usernameForEmailAPI,
+        $passwordForEmailAPI,
+        $date,
+        "c-us.whoisdatacenter.com",
+        "whois-email",
+      "united_states-email");
+
+    } catch (\Exception $exception) {
+      Log::alert($exception->getMessage());
+      dd($exception);
+    }
+
+    $usernameForEmailAPI="2024-03-31";
+    $passwordForEmailAPI="PSCXMMD19XC1";
+    try {
+      //to get email file
+      $emailResponse = self::dynamicCallCurl(
+        $usernameForEmailAPI,
+        $passwordForEmailAPI,
+        $date,
+        "c-us.whoisdatacenter.com",
+        "whois-email",
+      "united_states-phone");
+
+    } catch (\Exception $exception) {
+      Log::alert($exception->getMessage());
+      dd($exception);
+    }
+
+    try {
+     //To call main api to get domain info related file
       $response = self::curlCall($username, $password, $date);
 
     } catch (\Exception $exception) {
@@ -173,6 +209,61 @@ class FetchDomains extends Command
   }
 
   /**
+   * @param string $username
+   * @param string $password
+   * @param string $date
+   * @param string $uri
+   * @param string $filename
+   * @return bool
+   * @throws \Exception
+   */
+  private function dynamicCallCurl(string $username, string $password, string $date, string $uri, string $filename,string $apiType)
+  {
+    //Generate Basic Auth String
+    $basicAuth = base64_encode("$username:$password");
+    //output file path
+    $filepath = public_path(sprintf('%s/%s.csv',$filename, $date));
+
+    if (!file_exists($filepath)) {
+      $ch = curl_init();
+
+      $url = sprintf('https://%s/%s-%s.csv',$uri, $date,$apiType);
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+      curl_setopt($ch, CURLOPT_VERBOSE, true);
+
+
+      $headers = array();
+      //Basic Auth
+      $header = sprintf("Authorization: Basic %s", $basicAuth);
+      $headers[] = $header;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+
+      $statusCode = curl_getinfo($ch)["http_code"];
+
+      if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+      }
+
+
+      if ($statusCode == 200) {
+        //putting content retrieved from API
+        file_put_contents($filepath, $result);
+        return true;
+      } else {
+        throw new \Exception("File Not Found!");
+      }
+
+      curl_close($ch);
+
+    } else {
+      throw new \Exception("File Already Exists");
+    }
+  }
+  /**
    * @param string $file
    * @return bool
    */
@@ -197,3 +288,8 @@ class FetchDomains extends Command
 
 //curl --request GET  --url https://global.whoisdatacenter.com/2020-10-11.zip  --header 'authorization: Basic MjAyMC0xMS0wMTozQ0hmN1pKZlE1NDE=' -O -J
 //wget --user="2020-12-31" --password="$d@]4RY}.5X6" Https://global.whoisdatacenter.com/2020-11-22-global-email.csv
+//email url
+//wget --user=2024-03-31 --password='PSCXMMD19XC1' https://c-us.whoisdatacenter.com/2021-04-03-united_states-email.csv
+//phone url
+//wget --user=2024-03-31 --password='PSCXMMD19XC1' https://c-us.whoisdatacenter.com/2021-04-03-united_states-phone.csv
+
