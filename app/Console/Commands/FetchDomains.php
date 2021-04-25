@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\ExternalService;
 use App\Helpers\Helper;
 use App\Jobs\ImportCADomains;
+use App\Jobs\ImportDomainEmail;
+use App\Jobs\ImportDomainPhone;
 use App\Jobs\ImportUKDomains;
 use App\Jobs\ImportUSDomains;
 use Carbon\Carbon;
@@ -49,6 +51,8 @@ class FetchDomains extends Command
    */
   public function handle()
   {
+    $phoneResponse = null;
+    $emailResponse = null;
     //Fetch Credentails
     $domainFinder = Helper::fetchServicesFromYaml();
     $domainFinderCreds = ExternalService::whereServiceName($domainFinder[array_search("DomainFinder", $domainFinder)])->firstOrFail();
@@ -80,8 +84,8 @@ class FetchDomains extends Command
     //Your password.
     $password = $domainFinderCreds->password;
 
-    $usernameForEmailAPI="2024-03-31";
-    $passwordForEmailAPI="PSCXMMD19XC1";
+    $usernameForEmailAPI = "2024-03-31";
+    $passwordForEmailAPI = "PSCXMMD19XC1";
     try {
       //to get email file
       $emailResponse = self::dynamicCallCurl(
@@ -89,31 +93,30 @@ class FetchDomains extends Command
         $passwordForEmailAPI,
         $date,
         "c-us.whoisdatacenter.com",
-        "whois-email",
-      "united_states-email");
+        "email",
+        "united_states-email");
 
     } catch (\Exception $exception) {
       Log::alert($exception->getMessage());
     }
 
-    $usernameForEmailAPI="2024-03-31";
-    $passwordForEmailAPI="PSCXMMD19XC1";
+    $usernameForEmailAPI = "2024-03-31";
+    $passwordForEmailAPI = "PSCXMMD19XC1";
     try {
-      //to get email file
-      $emailResponse = self::dynamicCallCurl(
+      //to get phone file
+      $phoneResponse = self::dynamicCallCurl(
         $usernameForEmailAPI,
         $passwordForEmailAPI,
         $date,
         "c-us.whoisdatacenter.com",
-        "whois-email",
-      "united_states-phone");
+        "phone",
+        "united_states-phone");
 
     } catch (\Exception $exception) {
       Log::alert($exception->getMessage());
     }
-
     try {
-     //To call main api to get domain info related file
+      //To call main api to get domain info related file
       $response = self::curlCall($username, $password, $date);
 
     } catch (\Exception $exception) {
@@ -134,6 +137,16 @@ class FetchDomains extends Command
     }
     //Read Csv Files and seed db
     if ($response) {
+      //Import Domain Email
+      if ($emailResponse) {
+        $emailJob = (new ImportDomainEmail($date))->onQueue('importDomainsEmail');
+        dispatch($emailJob);
+      }
+      //Import Domain Phone
+      if ($phoneResponse) {
+        $phoneJob = (new ImportDomainPhone($date))->onQueue('importDomainsPhone}');
+        dispatch($phoneJob);
+      }
       //Import United States Domains
       $usJob = (new ImportUSDomains($date))->onQueue('importUSDomains');
       dispatch($usJob);
@@ -150,6 +163,62 @@ class FetchDomains extends Command
     }
 
     return 0;
+  }
+
+  /**
+   * @param string $username
+   * @param string $password
+   * @param string $date
+   * @param string $uri
+   * @param string $filename
+   * @return bool
+   * @throws \Exception
+   */
+  private function dynamicCallCurl(string $username, string $password, string $date, string $uri, string $filename, string $apiType)
+  {
+    //Generate Basic Auth String
+    $basicAuth = base64_encode("$username:$password");
+    //output file path
+    $filepath = public_path(sprintf('whois/%s-%s.csv', $filename, $date));
+
+    if (!file_exists($filepath)) {
+      $ch = curl_init();
+
+      $url = sprintf('https://%s/%s-%s.csv', $uri, $date, $apiType);
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+      curl_setopt($ch, CURLOPT_VERBOSE, true);
+
+
+      $headers = array();
+      //Basic Auth
+      $header = sprintf("Authorization: Basic %s", $basicAuth);
+      $headers[] = $header;
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($ch);
+
+      $statusCode = curl_getinfo($ch)["http_code"];
+
+      if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+      }
+
+
+      if ($statusCode == 200) {
+        //putting content retrieved from API
+        file_put_contents($filepath, $result);
+        return true;
+      } else {
+        throw new \Exception("File Not Found!");
+      }
+
+      curl_close($ch);
+
+    } else {
+      throw new \Exception("File Already Exists");
+    }
   }
 
   /**
@@ -206,61 +275,6 @@ class FetchDomains extends Command
 
   }
 
-  /**
-   * @param string $username
-   * @param string $password
-   * @param string $date
-   * @param string $uri
-   * @param string $filename
-   * @return bool
-   * @throws \Exception
-   */
-  private function dynamicCallCurl(string $username, string $password, string $date, string $uri, string $filename,string $apiType)
-  {
-    //Generate Basic Auth String
-    $basicAuth = base64_encode("$username:$password");
-    //output file path
-    $filepath = public_path(sprintf('%s/%s.csv',$filename, $date));
-
-    if (!file_exists($filepath)) {
-      $ch = curl_init();
-
-      $url = sprintf('https://%s/%s-%s.csv',$uri, $date,$apiType);
-      curl_setopt($ch, CURLOPT_URL, $url);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-      curl_setopt($ch, CURLOPT_VERBOSE, true);
-
-
-      $headers = array();
-      //Basic Auth
-      $header = sprintf("Authorization: Basic %s", $basicAuth);
-      $headers[] = $header;
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-      $result = curl_exec($ch);
-
-      $statusCode = curl_getinfo($ch)["http_code"];
-
-      if (curl_errno($ch)) {
-        echo 'Error:' . curl_error($ch);
-      }
-
-
-      if ($statusCode == 200) {
-        //putting content retrieved from API
-        file_put_contents($filepath, $result);
-        return true;
-      } else {
-        throw new \Exception("File Not Found!");
-      }
-
-      curl_close($ch);
-
-    } else {
-      throw new \Exception("File Already Exists");
-    }
-  }
   /**
    * @param string $file
    * @return bool
