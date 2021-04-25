@@ -94,7 +94,6 @@ class FetchDomains extends Command
 
     } catch (\Exception $exception) {
       Log::alert($exception->getMessage());
-      dd($exception);
     }
 
     $usernameForEmailAPI="2024-03-31";
@@ -111,7 +110,6 @@ class FetchDomains extends Command
 
     } catch (\Exception $exception) {
       Log::alert($exception->getMessage());
-      dd($exception);
     }
 
     try {
