@@ -18,8 +18,12 @@ class DomainPhoneImport implements ToCollection, WithStartRow, WithChunkReading
   {
     foreach ($rows as $row) {
       $domain = Domain::whereName($row[1])->first();
-      if ($domain) {
+      $domainPhone =DomainPhone::where(["name" => $row[1]])->first();
+      if(!$domainPhone)
+      {
         DomainPhone::create(["name" => $row[1], "phone" => $row[15]]);
+      }
+      if ($domain) {
         $domain->update(["phone_number" => $row[17]]);
       }
     }
