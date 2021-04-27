@@ -18,7 +18,7 @@ class DomainEmailImport implements ToCollection, WithStartRow, WithChunkReading
   {
     foreach ($rows as $row) {
       $domain = Domain::whereName($row[1])->first();
-      if (!$domain) {
+      if ($domain) {
         DomainEmail::create(["name" => $row[1], "email" => $row[17]]);
         $domain->update(["email" => $row[17]]);
 
