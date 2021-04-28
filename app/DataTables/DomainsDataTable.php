@@ -96,6 +96,8 @@ class DomainsDataTable extends DataTable
         ->printable(false)
         ->width(60)
         ->addClass('text-center'),
+      Column::make('email'),
+      Column::make('phone_number'),
       Column::make('region'),
       Column::make('title'),
       Column::make('description'),
