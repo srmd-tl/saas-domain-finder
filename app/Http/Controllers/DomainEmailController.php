@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\DomainEmailDataTable;
 use App\DomainEmail;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class DomainEmailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DomainEmailDataTable $dataTable)
     {
-
+      return $dataTable->render('domains.email');
     }
 
     /**

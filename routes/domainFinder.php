@@ -21,6 +21,8 @@ Route::group(["middleware" => ["auth", "is_subscriber"]], function () {
 
 //Domains Routes
   Route::get('domains', 'DomainController@index')->name('domains.index');
+  Router::get('emails', 'DomainEmailController@index')->name('domain.email.index');
+  Router::get('phones', 'DomainPhoneController@index')->name('domain.phone.index');
 });
 
 //Stripe routes for admin
@@ -30,7 +32,7 @@ Route::prefix('admin')->group(function () {
   Route::post('stripe-product', 'StripeProductController@store')->name('stripeProduct.store');
   Route::get('stripe-product/create', 'StripeProductController@create')->name('stripeProduct.create');
   //Third Party APIs Setup
-  Route::resource('external-services',ExternalServiceController::class);
+  Route::resource('external-services', ExternalServiceController::class);
 });
 //Stripe Billing Routes For Guest User
 Route::get('pricing', 'BillingController@pricing')->name('index.pricing');
