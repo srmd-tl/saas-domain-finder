@@ -6,8 +6,23 @@ Route::group(["middleware" => ["auth", "is_subscriber"]], function () {
   // Route url
   Route::get('/', 'DashboardController@dashboardAnalytics')->name('index');
 //Report Generator
-  Route::get('report/{domain}', function (\App\Domain $domain) {
-    $util = new \App\Utils\Util();
+  Route::get('report/{domain}', function () {
+    $domain=null;
+    if(request()->type=="domain")
+    {
+      $domain=\App\Domain::findOrFail(request()->domain);
+    }
+    else if(request()->type=="email")
+    {
+      $domain=\App\DomainEmail::findOrFail(request()->domain);
+
+    }
+    else if(request()->type=="phone")
+    {
+      $domain=\App\DomainPhone::findOrFail(request()->domain);
+    }
+
+      $util = new \App\Utils\Util();
     try {
       $report = $util->callToGtMetrix($domain->name);
     } catch (Exception $e) {

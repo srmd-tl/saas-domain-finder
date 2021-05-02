@@ -19,7 +19,7 @@ class DomainEmailDataTable extends DataTable
     return datatables()
       ->eloquent($query)
       ->addColumn('action', function (DomainEmail $domain) {
-        return '<td > <div class="d-flex"> <a target="_blank" href="' . route('generateReport', $domain->id) . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+        return '<td > <div class="d-flex"> <a target="_blank" href="' . route('generateReport', [$domain->id,"type"=>"email"]) . '" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
                      <i class="la la-edit"></i>
                      Generate Report
                      </a>
