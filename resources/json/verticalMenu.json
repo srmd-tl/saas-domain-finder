@@ -8,6 +8,20 @@
       "gate": 0
     },
     {
+      "url": "/emails",
+      "name": "Emails",
+      "icon": "feather icon-email",
+      "i18n": "nav.raise_support",
+      "gate": 0
+    },
+    {
+      "url": "/phones",
+      "name": "Phones",
+      "icon": "feather icon-phone",
+      "i18n": "nav.raise_support",
+      "gate": 0
+    },
+    {
       "url": "/admin/stripe-products",
       "name": "Stripe Products",
       "icon": "feather icon-life-buoy",
