@@ -14,7 +14,7 @@ class DomainEmailController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**

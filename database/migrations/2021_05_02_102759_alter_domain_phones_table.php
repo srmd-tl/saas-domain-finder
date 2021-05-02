@@ -14,6 +14,7 @@ class AlterDomainPhonesTable extends Migration
   public function up()
   {
     Schema::table('domain_phones', function (Blueprint $table) {
+      $table->boolean("is_present")->default(0);
       $table->string('email')->nullable();
       $table->string('register_date')->nullable();
       $table->string('server')->nullable();

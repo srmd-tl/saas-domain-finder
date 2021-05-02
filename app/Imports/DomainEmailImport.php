@@ -40,6 +40,7 @@ class DomainEmailImport implements ToCollection, WithStartRow, WithChunkReading
         if (($websiteScrapedData["title"] ?? false) && !Helper::detectChineseUTF8($websiteScrapedData["title"])) {
           DomainEmail::create(
             [
+              'is_present' => $isPresent,
               'name' => $row[1],
               'email' => $row[17],
               'register_date' => $row[2],

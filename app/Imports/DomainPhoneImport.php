@@ -41,6 +41,7 @@ class DomainPhoneImport implements ToCollection, WithStartRow, WithChunkReading
         if (($websiteScrapedData["title"] ?? false) && !Helper::detectChineseUTF8($websiteScrapedData["title"])) {
           DomainPhone::create(
             [
+              'is_present' => $isPresent,
               'name' => $row[1],
               'phone_number' => $row[18],
               'email'=>$row[17],
