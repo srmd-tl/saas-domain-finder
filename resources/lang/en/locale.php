@@ -146,5 +146,7 @@ return [
   "Stripe Products" => "Stripe Products",
   "Logout" => "Logout",
   "Users"=>"Users",
-  "External Services"=>"External Services"
+  "External Services"=>"External Services",
+  "Emails"=>"Emails",
+  "Phones"=>"Phones"
 ];

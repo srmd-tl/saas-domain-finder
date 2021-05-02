@@ -10,7 +10,7 @@
     {
       "url": "/emails",
       "name": "Emails",
-      "icon": "feather icon-email",
+      "icon": "feather icon-life-buoy",
       "i18n": "nav.raise_support",
       "gate": 0
     },
