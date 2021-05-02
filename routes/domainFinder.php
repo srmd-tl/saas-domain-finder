@@ -21,8 +21,8 @@ Route::group(["middleware" => ["auth", "is_subscriber"]], function () {
 
 //Domains Routes
   Route::get('domains', 'DomainController@index')->name('domains.index');
-  Router::get('emails', 'DomainEmailController@index')->name('domain.email.index');
-  Router::get('phones', 'DomainPhoneController@index')->name('domain.phone.index');
+  Route::get('emails', 'DomainEmailController@index')->name('domain.email.index');
+  Route::get('phones', 'DomainPhoneController@index')->name('domain.phone.index');
 });
 
 //Stripe routes for admin
