@@ -41,7 +41,6 @@ class AlterDomainEmailsTable extends Migration
   public function down()
   {
     Schema::table("domain_emails", function (Blueprint $table) {
-      $table->dropColumn("domain_registrar_name");
       $table->dropColumn("is_present");
       $table->dropColumn('register_date');
       $table->dropColumn('server');
