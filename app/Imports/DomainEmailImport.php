@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Matrix\Exception;
 
 class DomainEmailImport implements ToCollection, WithStartRow, WithChunkReading
 {
@@ -66,6 +67,40 @@ class DomainEmailImport implements ToCollection, WithStartRow, WithChunkReading
       }
     }
   }
+  private function scrapeWebsiteData($body, bool &$isPresent): array
+  {
+    $title = null;
+    $metaDescription = [];
+    if ($body) {
+      $crawler = new \Symfony\Component\DomCrawler\Crawler($body);
+      $metaDescription = $crawler->filterXpath("//meta[@name='description']")->extract(array('content'));
+      if ($metaDescription && preg_match("/available for sale/", $metaDescription[0])) {
+        $isPresent = false;
+        \Illuminate\Support\Facades\Log::alert("domain is for sale");
+      }
+
+      if ($isPresent) {
+        try {
+          try {
+
+
+            $title = $crawler->filterXPath('//title')->text();
+          } catch (\InvalidArgumentException $e) {
+            $title = null;
+          }
+
+        } catch (Exception $exception) {
+          dd($exception);
+        }
+
+      }
+
+    }
+    return ["title" => $title ?? null, "description" => $metaDescription[0] ?? null];
+
+
+  }
+
 
   /**
    * @return int

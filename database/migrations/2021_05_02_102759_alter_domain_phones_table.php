@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class AlterDomainPhonesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
   public function up()
   {
     Schema::table('domain_phones', function (Blueprint $table) {
@@ -25,9 +25,8 @@ class AlterDomainPhonesTable extends Migration
       $table->string('state')->nullable();
       $table->string('zip')->nullable();
       $table->string('country')->nullable();
-      $table->string('title')->nullable();
-      $table->string('description')->nullable();
-
+      $table->text('title')->nullable();
+      $table->text('description')->nullable();
 
 
     });
@@ -36,12 +35,27 @@ class AlterDomainPhonesTable extends Migration
 
 
   /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        //
-    }
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::table("domain_phones", function (Blueprint $table) {
+
+      $table->dropColumn("is_present");
+      $table->dropColumn('email');
+      $table->dropColumn('register_date');
+      $table->dropColumn('server');
+      $table->dropColumn('owner_name');
+      $table->dropColumn('other_name');
+      $table->dropColumn('address');
+      $table->dropColumn('city');
+      $table->dropColumn('state');
+      $table->dropColumn('zip');
+      $table->dropColumn('country');
+      $table->dropColumn('title');
+      $table->dropColumn('description');
+    });
+  }
 }
