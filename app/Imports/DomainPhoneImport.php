@@ -44,7 +44,7 @@ class DomainPhoneImport implements ToCollection, WithStartRow, WithChunkReading
             [
               'is_present' => $isPresent,
               'name' => $row[1],
-              'phone_number' => $row[18],
+              'phone' => $row[18],
               'email'=>$row[17],
               'register_date' => $row[2],
               'server' => $row[7],
@@ -64,7 +64,7 @@ class DomainPhoneImport implements ToCollection, WithStartRow, WithChunkReading
 
       }
       if ($domain) {
-        $domain->update(["phone_number" => $row[18]]);
+        $domain->update(["phone" => $row[18]]);
 
       }
     }
