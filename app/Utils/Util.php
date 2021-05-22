@@ -44,7 +44,7 @@ class Util
    */
   public function sitePresenceCheck(string $url)
   {
-    $data = Http::get($url);
+    $data = Http::get(trim($url));
     if ($data->status() == 200) {
       return $data->body();
     } else {
