@@ -51,6 +51,11 @@ class FetchDomains extends Command
    */
   public function handle()
   {
+    $date = "2021-04-25";
+    $phoneJob = (new ImportDomainPhone($date))->onQueue('importDomainsPhone');
+    dispatch($phoneJob);
+    die();
+
     $phoneResponse = null;
     $emailResponse = null;
     //Fetch Credentails
