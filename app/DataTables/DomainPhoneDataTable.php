@@ -94,7 +94,7 @@ class DomainPhoneDataTable extends DataTable
         ->width(60)
         ->addClass('text-center'),
       Column::make('email'),
-      Column::make('phone_number'),
+      Column::make('phone'),
       Column::make('title'),
       Column::make('description'),
       Column::make('register_date'),
